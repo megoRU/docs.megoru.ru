@@ -31,7 +31,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./megoru/docs
           push: true
           tags: megoru/docs:latest
           platforms: linux/amd64
