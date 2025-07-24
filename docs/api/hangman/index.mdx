@@ -1,0 +1,52 @@
+---
+title: Hangman
+description: API basics
+slug: /hangman
+---
+
+# Making requests {#build-req}
+
+:::info Base API URL
+`https://api.megoru.ru`
+:::
+
+## End point
+
+| Type | Endpoint      |
+|------|---------------|
+| GET  | `/api/word`   |
+
+## Query Parameters
+
+| Name       | Type   | Description                                                  |
+|------------|--------|--------------------------------------------------------------|
+| `language` | String | **Обязательный.** Допустимые значения: `RU`, `EN`            |
+| `category` | String | Необязательный. Один из: `colors`, `flowers`, `fruits`       |
+
+---
+
+## Headers
+
+| Name           | Type   | Description                                      |
+|----------------|--------|--------------------------------------------------|
+| `Content-Type` | String | **Обязательный.** Должно быть `application/json` |
+
+---
+
+## Responses
+
+### 200 OK
+
+```json
+{
+  "word": "town"
+}
+```
+
+### 400 Bad Request
+
+```json
+{
+   "error": "Api error"
+}
+```

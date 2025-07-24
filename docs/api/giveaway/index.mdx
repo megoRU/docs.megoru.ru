@@ -1,0 +1,53 @@
+---
+title: Giveaway
+description: API basics
+slug: /giveaway
+---
+
+# Making requests {#build-req}
+
+:::info Base API URL
+`https://api.megoru.ru`
+:::
+
+## End point
+
+| Type | Endpoint            |
+|------|---------------------|
+| POST | `/api/participants` |
+
+## Request Body
+
+| Name  | Type    | Description       |
+|-------|---------|-------------------|
+| `n`   | Integer | Number of winners |
+| `min` | Integer | Minimum number    |
+| `max` | Integer | Maximum number    |
+
+---
+
+## Headers
+
+| Name           | Type   | Description                                      |
+|----------------|--------|--------------------------------------------------|
+| `Content-Type` | String | **Обязательный.** Должно быть `application/json` |
+
+---
+
+## Responses
+
+### 200 OK
+
+```json
+{
+  "winners": ["3", "1"]
+}
+```
+
+### 503 Service Unavailable
+
+```json
+{
+    "error": "500"
+}
+```
