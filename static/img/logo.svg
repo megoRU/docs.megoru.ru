@@ -1,0 +1,7 @@
+<svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" rx="12" ry="12" fill="#007BFF"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="16" fill="white">
+        API
+    </text>
+</svg>
