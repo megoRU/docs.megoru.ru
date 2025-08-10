@@ -1,42 +1,42 @@
 ---
-title: Giveaway
-description: API basics
+title: Giveaway API — Определение победителя
+description: Основы API
 slug: /giveaway
 ---
-
-# Making requests {#build-req}
 
 :::info Base API URL
 `https://api.megoru.ru`
 :::
 
-## End point
+## Конечная точка
 
-| Type | Endpoint            |
-|------|---------------------|
-| POST | `/api/participants` |
-
-## Request Body
-
-| Name  | Type    | Description       |
-|-------|---------|-------------------|
-| `n`   | Integer | Number of winners |
-| `min` | Integer | Minimum number    |
-| `max` | Integer | Maximum number    |
+| Метод | Endpoint            | Описание                 |
+|-------|---------------------|--------------------------|
+| POST  | `/api/participants` | Определение победителей  |
 
 ---
 
-## Headers
+## Тело запроса (Request Body)
 
-| Name           | Type   | Description                                      |
-|----------------|--------|--------------------------------------------------|
-| `Content-Type` | String | **Обязательный.** Должно быть `application/json` |
+| Параметр | Тип     | Обязательно | Описание               |
+|----------|---------|-------------|------------------------|
+| `n`      | Integer | Да          | Количество победителей |
+| `min`    | Integer | Да          | Минимальное значение   |
+| `max`    | Integer | Да          | Максимальное значение  |
 
 ---
 
-## Responses
+## Заголовки
 
-### 200 OK
+| Имя            | Тип    | Описание           |
+|----------------|--------|--------------------|
+| `Content-Type` | String | `application/json` |
+
+---
+
+## Ответы сервера
+
+### 200 OK — Успешное определение победителей
 
 ```json
 {

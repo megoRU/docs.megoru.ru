@@ -1,52 +1,84 @@
 ---
-title: Hangman
-description: API basics
+Title: Hangman — получение слова
+description: API для получения слова для игры Hangman
 slug: /hangman
 ---
 
-# Making requests {#build-req}
+# Hangman API — получение слова {#hangman}
 
 :::info Base API URL
 `https://api.megoru.ru`
 :::
 
-## End point
+---
 
-| Type | Endpoint      |
-|------|---------------|
-| GET  | `/api/word`   |
+## Endpoint
 
-## Query Parameters
-
-| Name       | Type   | Description                                                  |
-|------------|--------|--------------------------------------------------------------|
-| `language` | String | **Обязательный.** Допустимые значения: `RU`, `EN`            |
-| `category` | String | Необязательный. Один из: `colors`, `flowers`, `fruits`       |
+```
+GET /api/word
+```
 
 ---
 
-## Headers
+## Query-параметры
 
-| Name           | Type   | Description                                      |
-|----------------|--------|--------------------------------------------------|
-| `Content-Type` | String | **Обязательный.** Должно быть `application/json` |
+| Параметр   | Тип    | Обязательный | Описание                               |
+|------------|--------|--------------|----------------------------------------|
+| `language` | string | да           | Допустимые значения: `RU`, `EN`        |
+| `category` | string | нет          | Примеры: `colors`, `flowers`, `fruits` |
+
+**Примеры:**
+- `?language=RU&category=fruits`
+- `?language=EN`
 
 ---
 
-## Responses
+## Ответы
 
 ### 200 OK
-
 ```json
 {
   "word": "town"
 }
 ```
+Пример на русском:
+```json
+{
+  "word": "яблоко"
+}
+```
 
 ### 400 Bad Request
+Причины: отсутствует обязательный параметр `language`, неверное значение, или другие проблемы с валидацией.
 
 ```json
 {
-   "error": "Api error"
+  "error": "Api error"
 }
 ```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "Internal server error"
+}
+```
+
+---
+
+## Схема ответа
+```json
+{
+    "word": "string"
+}
+```
+
+---
+
+## Замечания
+- `language` — обязательный параметр. Если его нет или он неправильный — сервер возвращает 400.
+- `category` — опционален; если не указан — выдаётся случайное слово из всех категорий.
+- Все ответы — в `application/json`.
+- Максимальная длина слова зависит от внутренних настроек сервера.
+
+---
