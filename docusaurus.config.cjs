@@ -1,12 +1,9 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext');
-const { createRequire } = require('module');
-const requireESM = createRequire(import.meta.url);
+const math = require('remark-math').default;
+const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn').default || require('@docusaurus/remark-plugin-npm2yarn');
+const lightCodeTheme = require('prism-react-renderer/themes/github').default;
+const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext').default;
+const katex = require('rehype-katex').default;
 
-const remarkMath = requireESM('remark-math').default;
-const rehypeKatex = requireESM('rehype-katex').default;
-
-/** @type {import('@docusaurus/types').Config} */
 module.exports = {
     title: 'api.megoru.ru',
     tagline: '',
@@ -53,7 +50,7 @@ module.exports = {
                     ],
                 },
             ],
-            copyright: `${new Date().getFullYear()} | megoru.ru`,
+            copyright: `© ${new Date().getFullYear()} megoru.ru`,
         },
         prism: {
             theme: lightCodeTheme,
@@ -66,17 +63,16 @@ module.exports = {
             {
                 docs: {
                     remarkPlugins: [
-                        remarkMath,
-                        [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+                        math,
+                        [npm2yarn, { sync: true }],
                     ],
-                    rehypePlugins: [rehypeKatex],
+                    rehypePlugins: [katex],
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: '/',
                     showLastUpdateAuthor: true,
                     showLastUpdateTime: true,
                     editUrl: 'https://github.com/megoRU/docs.megoru.ru',
                 },
-                blog: false, // чтобы не было ворнинга про blogDir
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
                 },
@@ -85,7 +81,7 @@ module.exports = {
     ],
     themes: [
         [
-            require.resolve('@easyops-cn/docusaurus-search-local'),
+            '@easyops-cn/docusaurus-search-local',
             {
                 hashed: true,
                 language: ['ru'],
