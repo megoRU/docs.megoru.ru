@@ -1,10 +1,12 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext');
+const { createRequire } = require('module');
+const requireESM = createRequire(import.meta.url);
 
-const math = require('remark-math');
-const katex = require('rehype-katex');
+const remarkMath = requireESM('remark-math').default;
+const rehypeKatex = requireESM('rehype-katex').default;
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
+/** @type {import('@docusaurus/types').Config} */
 module.exports = {
     title: 'api.megoru.ru',
     tagline: '',
@@ -23,16 +25,8 @@ module.exports = {
                 src: 'img/logo.svg',
             },
             items: [
-                {
-                    href: '/api/',
-                    position: 'left',
-                    label: 'API',
-                },
-                {
-                    href: '/sdk/',
-                    position: 'left',
-                    label: 'SDK',
-                },
+                { href: '/api/', position: 'left', label: 'API' },
+                { href: '/sdk/', position: 'left', label: 'SDK' },
                 {
                     href: 'https://github.com/megoRU/docs.megoru.ru',
                     position: 'right',
@@ -47,27 +41,15 @@ module.exports = {
                 {
                     title: 'Documentation',
                     items: [
-                        {
-                            label: 'REST API',
-                            to: '/api/',
-                        },
-                        {
-                            label: "SDK's",
-                            to: '/sdk/',
-                        }
+                        { label: 'REST API', to: '/api/' },
+                        { label: "SDK's", to: '/sdk/' },
                     ],
                 },
                 {
                     title: 'Links',
                     items: [
-                        {
-                            label: 'GitHub',
-                            href: 'https://github.com/megoRU',
-                        },
-                        {
-                            label: 'megoru.ru',
-                            href: 'https://megoru.ru',
-                        }
+                        { label: 'GitHub', href: 'https://github.com/megoRU' },
+                        { label: 'megoru.ru', href: 'https://megoru.ru' },
                     ],
                 },
             ],
@@ -83,14 +65,18 @@ module.exports = {
             '@docusaurus/preset-classic',
             {
                 docs: {
-                    remarkPlugins: [math, require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-                    rehypePlugins: [katex],
+                    remarkPlugins: [
+                        remarkMath,
+                        [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+                    ],
+                    rehypePlugins: [rehypeKatex],
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: '/',
                     showLastUpdateAuthor: true,
                     showLastUpdateTime: true,
-                    editUrl: "https://github.com/megoRU/docs.megoru.ru",
+                    editUrl: 'https://github.com/megoRU/docs.megoru.ru',
                 },
+                blog: false, // чтобы не было ворнинга про blogDir
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
                 },
@@ -99,13 +85,12 @@ module.exports = {
     ],
     themes: [
         [
-            require.resolve("@easyops-cn/docusaurus-search-local"),
-            /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-            ({
+            require.resolve('@easyops-cn/docusaurus-search-local'),
+            {
                 hashed: true,
-                language: ["ru"],
-                docsRouteBasePath: "/",
-            })
-        ]
-    ]
+                language: ['ru'],
+                docsRouteBasePath: '/',
+            },
+        ],
+    ],
 };

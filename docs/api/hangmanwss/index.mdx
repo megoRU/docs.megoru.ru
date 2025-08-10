@@ -1,10 +1,149 @@
 ---
-title: Hangman WebSocket (Скоро)
+title: Hangman WebSocket
 description: API basics
 slug: /hangman-wss
 ---
 
 # Making requests {#build-req}
-:::info Base API URL:
-https://api.megoru.ru/
+:::info Base API URL
+`https://hangman.megoru.ru/ws/hangman`
 :::
+
+## Описание
+Взаимодействие с сервером происходит через **WebSocket**. Все сообщения передаются в формате JSON.
+
+## Команды
+---
+
+### 1. Поиск игры
+
+**Отправка:**
+```json
+{
+  "type": "FIND_GAME",
+  "lang": "ru"
+}
+```
+
+**Ответы:**
+
+Если игроков нет:
+```json
+{
+  "type": "WAITING"
+}
+```
+
+Если найден соперник:
+```json
+{
+  "gameId": "EnVoLyvjQAaRXwVXbH",
+  "wordLength": 8,
+  "type": "MATCH_FOUND"
+}
+```
+
+---
+
+### 2. Сделать ход
+
+**Отправка:**
+```json
+{
+  "type": "MOVE",
+  "gameId": "EnVoLyvjQAaRXwVXbH",
+  "letter": "а"
+}
+```
+
+**Ответ:**
+```json
+{
+  "attemptsLeft": 7,
+  "duplicate": false,
+  "type": "STATE_UPDATE",
+  "maskedWord": "_ _ _ _ _ _ _ _"
+}
+```
+> В режиме мультиплеера ответ придёт с уникальными данными для каждого игрока. В кооперативном режиме стейт общий.
+
+
+---
+
+### 3. Создание совместной игры
+**Отправка:**
+```json
+{
+  "type": "CREATE_MULTI",
+  "lang": "RU"
+}
+```
+
+**Ответ:**
+```json
+{
+  "type": "ROOM_CREATED",
+  "wordLength": 8,
+  "gameId": "AbCdEf123456"
+}
+```
+
+---
+
+### 4. Подключение к комнате по коду
+**Отправка:**
+```json
+{
+  "type": "JOIN_MULTI",
+  "gameId": "AbCdEf123456"
+}
+```
+
+**Ответы:**
+- Если комната не найдена:
+```json
+{
+  "type": "ERROR",
+  "msg": "Room not found"
+}
+```
+- Если успешно:
+```json
+{
+  "attemptsLeft": 7,
+  "wordLength": 8,
+  "players": 2,
+  "gameId": "AbCdEf123456",
+  "guessed": ["А", "Б"],
+  "type": "PLAYER_JOINED"
+}
+```
+
+## Типы сообщений
+| Поле           | Тип       | Описание                  |
+| -------------- | --------- | ------------------------- |
+| `type`         | string    | Тип события               |
+| `gameId`       | string    | ID игры                   |
+| `letter`       | string    | Буква для хода            |
+| `attemptsLeft` | number    | Остаток попыток           |
+| `duplicate`    | boolean   | Буква уже использована    |
+| `maskedWord`   | string    | Слово с закрытыми буквами |
+| `lang`         | string    | Язык игры                 |
+| `wordLength`   | number    | Длина слова               |
+| `players`      | number    | Количество игроков        |
+| `guessed`      | string[]  | Угаданные буквы           |
+| `msg`          | string    | Сообщение об ошибке       |
+
+---
+
+## Пример последовательности
+
+### Соревновательная игра:
+1. Отправляете `FIND_GAME`.
+2. Получаете `MATCH_FOUND` или `WAITING`.
+3. При `MATCH_FOUND` начинаете отправлять `MOVE` и получать `STATE_UPDATE`.
+
+### Кооперативная игра:
+1. Отправляете `CREATE_MULTI` → получаете `ROOM_CREATED` с `gameId`.
+2. Второй игрок отправляет `JOIN_MULTI` с тем же `gameId`.
+3. Оба начинают обмениваться командами `MOVE` и получать `STATE_UPDATE`.
