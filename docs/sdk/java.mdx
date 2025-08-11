@@ -32,6 +32,11 @@ Add to your pom.xml file:
 # Basic Usage {#usage}
 
 ```java
+public static void main(String[] args) {
+    MegoruAPI megoruAPI = new MegoruAPI.Builder().build();
+    String word = megoruAPI.getWord(gameWordLanguage).word();
 
+    System.out.println(word);
+}
 ```
 
