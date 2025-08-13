@@ -20,7 +20,9 @@ slug: /hangman-wss
 ```json
 {
   "type": "FIND_GAME",
-  "lang": "ru"
+  "lang": "ru",
+  "name": "string|null",
+  "image": "base64|null"
 }
 ```
 
@@ -36,9 +38,13 @@ slug: /hangman-wss
 Если найден соперник:
 ```json
 {
+  "type": "MATCH_FOUND",
   "gameId": "EnVoLyvjQAaRXwVXbH",
   "wordLength": 8,
-  "type": "MATCH_FOUND"
+  "players": [
+    { "name": "Иван", "image": "base64" },
+    { "name": "Олег", "image": "base64" }
+  ]
 }
 ```
 
@@ -74,7 +80,9 @@ slug: /hangman-wss
 ```json
 {
   "type": "CREATE_MULTI",
-  "lang": "RU"
+  "lang": "RU",
+  "name": "string|null",
+  "image": "base64|null"
 }
 ```
 
@@ -94,7 +102,9 @@ slug: /hangman-wss
 ```json
 {
   "type": "JOIN_MULTI",
-  "gameId": "AbCdEf123456"
+  "gameId": "AbCdEf123456",
+  "name": "string|null",
+  "image": "base64|null"
 }
 ```
 
@@ -109,29 +119,34 @@ slug: /hangman-wss
 - Если успешно:
 ```json
 {
+  "type": "PLAYER_JOINED",
   "attemptsLeft": 7,
   "wordLength": 8,
-  "players": 2,
+  "players": [
+    { "name": "Иван", "image": "base64" },
+    { "name": "Олег", "image": "base64" }
+  ],
   "gameId": "AbCdEf123456",
-  "guessed": ["А", "Б"],
-  "type": "PLAYER_JOINED"
+  "guessed": ["А", "Б"]
 }
 ```
 
 ## Типы сообщений
-| Поле           | Тип       | Описание                  |
-| -------------- | --------- | ------------------------- |
-| `type`         | string    | Тип события               |
-| `gameId`       | string    | ID игры                   |
-| `letter`       | string    | Буква для хода            |
-| `attemptsLeft` | number    | Остаток попыток           |
-| `duplicate`    | boolean   | Буква уже использована    |
-| `maskedWord`   | string    | Слово с закрытыми буквами |
-| `lang`         | string    | Язык игры                 |
-| `wordLength`   | number    | Длина слова               |
-| `players`      | number    | Количество игроков        |
-| `guessed`      | string[]  | Угаданные буквы           |
-| `msg`          | string    | Сообщение об ошибке       |
+| Поле           | Тип      | Описание                                                     |
+|----------------|----------|--------------------------------------------------------------|
+| `type`         | string   | Тип события                                                  |
+| `gameId`       | string   | ID игры                                                      |
+| `name`         | string   | Никнейм/null                                                 |
+| `image`        | string   | Изображение в base64/null                                    |
+| `letter`       | string   | Буква для хода                                               |
+| `attemptsLeft` | number   | Остаток попыток                                              |
+| `duplicate`    | boolean  | Буква уже использована                                       |
+| `maskedWord`   | string   | Слово с закрытыми буквами                                    |
+| `lang`         | string   | Язык игры                                                    |
+| `wordLength`   | number   | Длина слова                                                  |
+| `players`      | Object[] | Список игроков `{ name: string\|null, image: string\|null }` |
+| `guessed`      | string[] | Угаданные буквы                                              |
+| `msg`          | string   | Сообщение об ошибке                                          |
 
 ---
 
