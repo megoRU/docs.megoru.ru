@@ -21,8 +21,8 @@ slug: /hangman-wss
 {
   "type": "FIND_GAME",
   "lang": "ru",
-  "name": "string|null",
-  "image": "base64|null"
+  "name": "string",
+  "image": "base64"
 }
 ```
 
@@ -35,7 +35,7 @@ slug: /hangman-wss
 }
 ```
 
-Если найден соперник:
+Если найден соперник отправляется обоим:
 ```json
 {
   "type": "MATCH_FOUND",
@@ -72,7 +72,6 @@ slug: /hangman-wss
 ```
 > В режиме мультиплеера ответ придёт с уникальными данными для каждого игрока. В кооперативном режиме стейт общий.
 
-
 ---
 
 ### 3. Создание совместной игры
@@ -81,8 +80,8 @@ slug: /hangman-wss
 {
   "type": "CREATE_MULTI",
   "lang": "RU",
-  "name": "string|null",
-  "image": "base64|null"
+  "name": "string",
+  "image": "base64"
 }
 ```
 
@@ -103,8 +102,8 @@ slug: /hangman-wss
 {
   "type": "JOIN_MULTI",
   "gameId": "AbCdEf123456",
-  "name": "string|null",
-  "image": "base64|null"
+  "name": "string",
+  "image": "base64"
 }
 ```
 
@@ -116,7 +115,7 @@ slug: /hangman-wss
   "msg": "Room not found"
 }
 ```
-- Если успешно:
+- Если успешно отправляется всем игрокам:
 ```json
 {
   "type": "PLAYER_JOINED",
@@ -131,21 +130,75 @@ slug: /hangman-wss
 }
 ```
 
+### 5. Обработка выхода из игры
+**Отправка:**
+```json
+{
+  "type": "LEAVE_GAME"
+}
+```
+
+**Ответ:**
+```json
+{
+  "type": "LEFT_GAME"
+}
+```
+
+**Уведомление игроку:**
+```json
+{
+  "type": "GAME_OVER",
+  "result": "LOSE",
+  "word": "город"
+}
+```
+
+### 5. Результат игры
+> Приходит при выходе игрока или после MOVE если требуется
+
+**Ответ для соревновательной игры:**
+```json
+{
+  "type": "GAME_OVER",
+  "result": "WIN",
+  "word": "город"
+}
+```
+
+**Ответ для совместной игры:**
+```json
+{
+  "type": "GAME_OVER_COOP",
+  "result": "WIN",
+  "word": "город",
+  "newWord": "города",
+  "attemptsLeft": 8,
+  "wordLength": 6,
+  "players": "{ name: string, image: base64 }",
+  "gameId": "AbCdEf123456",
+  "guessed": []
+}
+```
+> Сделано для продолжения игры, не удаляя комнату
+
 ## Типы сообщений
 | Поле           | Тип      | Описание                                                     |
 |----------------|----------|--------------------------------------------------------------|
 | `type`         | string   | Тип события                                                  |
 | `gameId`       | string   | ID игры                                                      |
-| `name`         | string   | Никнейм/null                                                 |
-| `image`        | string   | Изображение в base64/null                                    |
+| `name`         | string   | Никнейм                                                      |
+| `image`        | string   | Изображение в `base64`                                       |
+| `newWord`      | string   | Загаданное слово, используется для тестирования              |
+| `wordLength`   | number   | Длина слова                                                  |
+| `maskedWord`   | string   | Слово с закрытыми буквами                                    |
 | `letter`       | string   | Буква для хода                                               |
+| `guessed`      | string[] | Угаданные буквы                                              |
+| `result`       | string   | Результат игры: `WIN` / `LOSE`                               |
 | `attemptsLeft` | number   | Остаток попыток                                              |
 | `duplicate`    | boolean  | Буква уже использована                                       |
-| `maskedWord`   | string   | Слово с закрытыми буквами                                    |
 | `lang`         | string   | Язык игры                                                    |
-| `wordLength`   | number   | Длина слова                                                  |
 | `players`      | Object[] | Список игроков `{ name: string\|null, image: base64\|null }` |
-| `guessed`      | string[] | Угаданные буквы                                              |
 | `msg`          | string   | Сообщение об ошибке                                          |
 
 ---
@@ -161,3 +214,5 @@ slug: /hangman-wss
 1. Отправляете `CREATE_MULTI` → получаете `ROOM_CREATED` с `gameId`.
 2. Второй игрок отправляет `JOIN_MULTI` с тем же `gameId`.
 3. Оба начинают обмениваться командами `MOVE` и получать `STATE_UPDATE`.
+
+## Работа
