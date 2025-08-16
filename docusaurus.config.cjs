@@ -1,7 +1,21 @@
 const math = require('remark-math').default;
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn').default || require('@docusaurus/remark-plugin-npm2yarn');
-const lightCodeTheme = require('prism-react-renderer/themes/github').default;
-const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext').default;
+const { themes } = require('prism-react-renderer');
+let lightCodeTheme = themes.github;
+const darkCodeTheme = themes.oceanicNext;
+
+lightCodeTheme = {
+    ...lightCodeTheme,
+    styles: [
+        ...lightCodeTheme.styles,
+        {
+            types: ['property'],
+            style: {
+                color: 'rgb(0, 92, 197)',
+            },
+        },
+    ],
+};
 const katex = require('rehype-katex').default;
 
 module.exports = {
@@ -9,12 +23,18 @@ module.exports = {
     tagline: '',
     url: 'https://docs.megoru.ru',
     baseUrl: '/',
-    onBrokenLinks: 'warn',
-    onBrokenMarkdownLinks: 'warn',
+    trailingSlash: false,
+    onBrokenLinks: 'throw',
+    onBrokenMarkdownLinks: 'throw',
     favicon: 'img/favicon.png',
     organizationName: 'megoru',
     projectName: 'api.megoru.ru',
+    i18n: {
+        defaultLocale: 'ru',
+        locales: ['ru'],
+    },
     themeConfig: {
+        image: 'img/favicon.png',
         navbar: {
             title: 'api.megoru.ru',
             logo: {
@@ -28,7 +48,7 @@ module.exports = {
                     href: 'https://github.com/megoRU/docs.megoru.ru',
                     position: 'right',
                     className: 'header-github-link',
-                    'aria-label': 'GitHub repository',
+                    'aria-label': 'Репозиторий на GitHub',
                 },
             ],
         },
@@ -36,14 +56,14 @@ module.exports = {
             style: 'dark',
             links: [
                 {
-                    title: 'Documentation',
+                    title: 'Документация',
                     items: [
                         { label: 'REST API', to: '/giveaway' },
-                        { label: "SDK's", to: '/sdk/' },
+                        { label: 'SDK', to: '/sdk/' },
                     ],
                 },
                 {
-                    title: 'Links',
+                    title: 'Ссылки',
                     items: [
                         { label: 'GitHub', href: 'https://github.com/megoRU' },
                         { label: 'megoru.ru', href: 'https://megoru.ru' },
