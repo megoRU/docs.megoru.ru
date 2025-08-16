@@ -1,7 +1,8 @@
 const math = require('remark-math').default;
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn').default || require('@docusaurus/remark-plugin-npm2yarn');
-const lightCodeTheme = require('prism-react-renderer/themes/github').default;
-const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext').default;
+const { themes } = require('prism-react-renderer');
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.oceanicNext;
 const katex = require('rehype-katex').default;
 
 module.exports = {
@@ -9,12 +10,14 @@ module.exports = {
     tagline: '',
     url: 'https://docs.megoru.ru',
     baseUrl: '/',
-    onBrokenLinks: 'warn',
-    onBrokenMarkdownLinks: 'warn',
+    trailingSlash: false,
+    onBrokenLinks: 'throw',
+    onBrokenMarkdownLinks: 'throw',
     favicon: 'img/favicon.png',
     organizationName: 'megoru',
     projectName: 'api.megoru.ru',
     themeConfig: {
+        image: 'img/favicon.png',
         navbar: {
             title: 'api.megoru.ru',
             logo: {
