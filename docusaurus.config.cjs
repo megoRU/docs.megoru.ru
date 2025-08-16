@@ -1,8 +1,21 @@
 const math = require('remark-math').default;
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn').default || require('@docusaurus/remark-plugin-npm2yarn');
 const { themes } = require('prism-react-renderer');
-const lightCodeTheme = themes.github;
+let lightCodeTheme = themes.github;
 const darkCodeTheme = themes.oceanicNext;
+
+lightCodeTheme = {
+    ...lightCodeTheme,
+    styles: [
+        ...lightCodeTheme.styles,
+        {
+            types: ['property'],
+            style: {
+                color: 'rgb(0, 92, 197)',
+            },
+        },
+    ],
+};
 const katex = require('rehype-katex').default;
 
 module.exports = {
