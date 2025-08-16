@@ -16,6 +16,10 @@ module.exports = {
     favicon: 'img/favicon.png',
     organizationName: 'megoru',
     projectName: 'api.megoru.ru',
+    i18n: {
+        defaultLocale: 'ru',
+        locales: ['ru'],
+    },
     themeConfig: {
         image: 'img/favicon.png',
         navbar: {
@@ -31,7 +35,7 @@ module.exports = {
                     href: 'https://github.com/megoRU/docs.megoru.ru',
                     position: 'right',
                     className: 'header-github-link',
-                    'aria-label': 'GitHub repository',
+                    'aria-label': 'Репозиторий на GitHub',
                 },
             ],
         },
@@ -39,14 +43,14 @@ module.exports = {
             style: 'dark',
             links: [
                 {
-                    title: 'Documentation',
+                    title: 'Документация',
                     items: [
                         { label: 'REST API', to: '/giveaway' },
-                        { label: "SDK's", to: '/sdk/' },
+                        { label: 'SDK', to: '/sdk/' },
                     ],
                 },
                 {
-                    title: 'Links',
+                    title: 'Ссылки',
                     items: [
                         { label: 'GitHub', href: 'https://github.com/megoRU' },
                         { label: 'megoru.ru', href: 'https://megoru.ru' },
