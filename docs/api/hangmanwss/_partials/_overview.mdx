@@ -1,0 +1,24 @@
+:::info Base API URL
+`https://hangman.megoru.ru/ws`
+:::
+
+## Описание
+Взаимодействие с сервером происходит через **WebSocket**. Все сообщения передаются в формате JSON.
+
+## Типы сообщений
+| Поле           | Тип      | Описание                                                     |
+|----------------|----------|--------------------------------------------------------------|
+| `type`         | string   | Тип события                                                  |
+| `gameId`       | string   | ID игры                                                      |
+| `name`         | string   | Никнейм                                                      |
+| `image`        | string   | Изображение в `base64`                                       |
+| `wordLength`   | number   | Длина слова                                                  |
+| `maskedWord`   | string   | Слово с закрытыми буквами                                    |
+| `letter`       | string   | Буква для хода                                               |
+| `guessed`      | string[] | Угаданные буквы                                              |
+| `result`       | string   | Результат игры: `WIN` / `LOSE`                               |
+| `attemptsLeft` | number   | Остаток попыток                                              |
+| `duplicate`    | boolean  | Буква уже использована                                       |
+| `lang`         | string   | Язык игры                                                    |
+| `players`      | Object[] | Список игроков `{ name: string\|null, image: base64\|null }` |
+| `msg`          | string   | Сообщение об ошибке                                          |

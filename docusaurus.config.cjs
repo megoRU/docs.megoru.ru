@@ -22,7 +22,7 @@ module.exports = {
                 src: 'img/logo.svg',
             },
             items: [
-                { href: '/api/', position: 'left', label: 'API' },
+                { to: '/giveaway', position: 'left', label: 'API' },
                 { href: '/sdk/', position: 'left', label: 'SDK' },
                 {
                     href: 'https://github.com/megoRU/docs.megoru.ru',
@@ -38,7 +38,7 @@ module.exports = {
                 {
                     title: 'Documentation',
                     items: [
-                        { label: 'REST API', to: '/api/' },
+                        { label: 'REST API', to: '/giveaway' },
                         { label: "SDK's", to: '/sdk/' },
                     ],
                 },
