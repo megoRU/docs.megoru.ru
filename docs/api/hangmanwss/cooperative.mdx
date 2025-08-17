@@ -8,6 +8,7 @@ sidebar_position: 3
 ```json
 {
   "type": "CREATE_MULTI",
+  "playerId": "string",
   "lang": "ru",
   "name": "string",
   "image": "base64"
@@ -30,7 +31,8 @@ sidebar_position: 3
 ```json
 {
   "type": "JOIN_MULTI",
-  "gameId": "AbCdEf123456",
+  "playerId": "string",
+  "gameId": "string",
   "name": "string",
   "image": "base64"
 }
@@ -67,8 +69,8 @@ sidebar_position: 3
 ```json
 {
   "type": "MOVE",
-  "gameId": "EnVoLyvjQAaRXwVXbH",
-  "letter": "а"
+  "gameId": "string",
+  "letter": "string"
 }
 ```
 
@@ -90,7 +92,7 @@ sidebar_position: 3
 ```json
 {
   "type": "LEAVE_GAME",
-  "gameId": "AbCdEf123456"
+  "gameId": "string"
 }
 ```
 
