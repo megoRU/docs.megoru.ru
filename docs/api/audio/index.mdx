@@ -1,0 +1,59 @@
+---
+title: Конвертер аудио M4A → MP3
+sidebar_label: Аудио конвертер
+description: Инструкция по работе
+slug: /audio
+---
+
+:::info Base API URL
+`https://api.megoru.ru`
+:::
+
+## Описание
+Преобразую файлы формата `.m4a` в `.mp3` быстро и качественно.
+
+:::warning
+Максимальный размер файла — **500 МБ**
+:::
+
+## Конечная точка
+
+| Метод | Endpoint             | Описание  |
+|-------|----------------------|-----------|
+| POST  | `/api/audio/convert` | M4A → MP3 |
+
+## Заголовки
+| Имя          | Значение            |
+|--------------|---------------------|
+| Content-Type | multipart/form-data |
+
+## Конвертация M4A в MP3
+
+---
+
+### Примеры отправки
+
+**Через cURL:**
+
+```bash
+curl -X POST https://api.megoru.ru/api/audio/convert \
+  -F "file=@/path/to/input.m4a" \
+  -o output.mp3
+```
+
+---
+
+## Ответ сервера
+
+* **Status:** `200 OK`
+* **Content-Type:** `audio/mpeg`
+* **Content-Disposition:** `attachment; filename="имя_файла.mp3"`
+
+---
+
+### Возможные ошибки
+
+| Статус | Описание                                 |
+|--------|------------------------------------------|
+| 413    | Content Too Large — файл превышает лимит |
+| 500    | Ошибка конвертации на сервере            |
