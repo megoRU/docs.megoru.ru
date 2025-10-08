@@ -1,37 +1,16 @@
 ---
 title: java
-description: Basic documentation for the java library
+description: Базовая документация по библиотеке Java
 slug: /sdk/java
 ---
 
-An easy-to-use library designed to simplify interaction with the api.megoru.ru
+Простая и удобная библиотека для взаимодействия с [api.megoru.ru](api.megoru.ru).
 
-[GitHub Repo](https://github.com/megoRU/api.megoru.ru-wrapper)
+[GitHub репозиторий](https://github.com/megoRU/api.megoru.ru-wrapper)
 
-# Installation {#install}
+# Базовое использование{#usage}
 
-Check the latest version: [jitpack.io](https://jitpack.io/#megoRU/api.megoru.ru-wrapper)
-
-Add to your pom.xml file:
-
-```maven
-<repositories>
- <repository>
-	<id>jitpack.io</id>
-	<url>https://jitpack.io</url>
- </repository>
-</repositories>
-
-<dependency>
-    <groupId>com.github.megoRU</groupId>
-    <artifactId>api.megoru.ru</artifactId>
-    <version>5.0.5</version>
-</dependency>
-```
-
-# Basic Usage {#usage}
-
-```java
+```Java
 public static void main(String[] args) {
     MegoruAPI megoruAPI = new MegoruAPI.Builder().build();
     String word = megoruAPI.getWord(gameWordLanguage).word();
