@@ -94,6 +94,7 @@ module.exports = {
                     showLastUpdateTime: true,
                     editUrl: 'https://github.com/megoRU/docs.megoru.ru',
                 },
+                blog: false,
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
                 },
