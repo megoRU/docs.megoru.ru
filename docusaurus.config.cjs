@@ -25,10 +25,14 @@ module.exports = {
     baseUrl: '/',
     trailingSlash: false,
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'throw',
     favicon: 'img/favicon.png',
     organizationName: 'megoru',
     projectName: 'api.megoru.ru',
+    markdown: {
+        hooks: {
+            onBrokenMarkdownLinks: 'throw',
+        },
+    },
     i18n: {
         defaultLocale: 'ru',
         locales: ['ru'],
@@ -75,6 +79,7 @@ module.exports = {
         prism: {
             theme: lightCodeTheme,
             darkTheme: darkCodeTheme,
+            additionalLanguages: ['java', 'xml'],
         },
     },
     presets: [
