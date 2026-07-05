@@ -25,7 +25,12 @@ module.exports = {
     baseUrl: '/',
     trailingSlash: false,
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'throw',
+    markdown: {
+        format: 'detect',
+        hooks: {
+            onBrokenMarkdownLinks: 'throw',
+        },
+    },
     favicon: 'img/favicon.png',
     organizationName: 'megoru',
     projectName: 'api.megoru.ru',
