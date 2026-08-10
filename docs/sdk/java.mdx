@@ -1,21 +1,42 @@
+# Java
+
+Простая и удобная Java-библиотека для взаимодействия с **[api.megoru.ru](https://api.megoru.ru)**.
+
 ---
-title: java
-description: Базовая документация по библиотеке Java
-slug: /sdk/java
----
 
-Простая и удобная библиотека для взаимодействия с [api.megoru.ru](https://api.megoru.ru).
+## 📖 Документация
 
-[GitHub репозиторий](https://github.com/megoRU/api.megoru.ru-wrapper)
+Подробное описание методов и примеры использования находятся в [GitHub репозитории](https://github.com/megoRU/api.megoru.ru-wrapper).
 
-# Базовое использование{#usage}
+## 📦 Установка
 
-```Java
-public static void main(String[] args) {
-    MegoruAPI megoruAPI = new MegoruAPI.Builder().build();
-    String word = megoruAPI.getWord(gameWordLanguage).word();
+> Добавьте библиотеку в зависимости проекта.
 
-    System.out.println(word);
-}
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.megoRU</groupId>
+    <artifactId>api.megoru.ru-wrapper</artifactId>
+    <version>5.1.4</version>
+</dependency>
 ```
 
+## 💡 Пример
+
+```java
+MegoruAPI api = new MegoruAPI.Builder().build();
+
+var result = api.getWord(gameWordLanguage);
+
+System.out.println(result.word());
+```
+
+---
+
+⭐ Если библиотека оказалась полезной — поставьте звезду репозиторию!
